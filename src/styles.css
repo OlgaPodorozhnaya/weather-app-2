@@ -1,0 +1,85 @@
+.city {
+  width: 500px;
+  height: 40px;
+  margin: 40px 30px 10px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  /* border: 1px solid #138496; */
+  border: none;
+}
+.city:focus {
+  outline: 0;
+}
+
+.degree {
+  text-align: center;
+  padding: 2px;
+  font-size: 18px;
+}
+.degrees {
+  font-weight: normal;
+  font-size: 20px;
+}
+.big-degree {
+  font-weight: bold;
+  font-size: 35px;
+}
+.dayOfWeek {
+  text-align: center;
+  font-size: 18px;
+  font-family: "Barlow Semi Condensed", sans-serif;
+  font-weight: 500;
+}
+
+.picture {
+  display: block;
+  text-align: center;
+  margin: 0 auto 15px;
+}
+
+.block-1 {
+  margin-top: 20px;
+}
+
+.block-2 {
+  margin-top: 50px;
+}
+.fon {
+  background-image: url(image/nebo.jpg);
+  background-size: cover;
+}
+
+.box {
+  width: 800px;
+  margin: 10px auto;
+}
+.info {
+  font-size: 20px;
+  font-family: "Barlow Semi Condensed", sans-serif;
+}
+
+.day-degree {
+  font-weight: bold;
+}
+.button {
+  padding: 5px 20px;
+  border-radius: 8px;
+  border: none;
+  background-color: rgba(252, 248, 22, 0.961);
+}
+
+.buttonLoc {
+  padding: 5px 20px;
+  border-radius: 8px;
+  background-color: rgb(50, 224, 50);
+  color: #fff;
+  border: none;
+}
+
+.search-form {
+  display: inline;
+}
+
+.link {
+ margin-left: 270px;
+}
