@@ -1,5 +1,6 @@
-let now = new Date();
-let weekDays = [
+function today (currentDate) {
+  let now = new Date(currentDate);
+  let weekDays = [
   "Sunday",
   "Monday",
   "Tuesday",
@@ -9,13 +10,13 @@ let weekDays = [
   "Saturday",
 ];
 let day = weekDays[now.getDay()];
-
-let dayAndTime = document.querySelector(".today");
-
 let hour = now.getHours();
-let minutes = now.getMinutes();
+  let minutes = now.getMinutes();
+  
+ return `${day} ${hour}:${minutes}`;
+}
 
-dayAndTime.innerHTML = `${day} ${hour}:${minutes}`;
+
 
 function showFahrenheitTemp(event) {
   event.preventDefault();
@@ -49,7 +50,9 @@ function changeData(info) {
   inputCity.innerHTML = info.data.name;
 
   celsiusTemp = info.data.main.temp;
-
+  
+  let dayAndTime = document.querySelector(".today");
+  dayAndTime.innerHTML= today(info.data.dt*1000);
   let temperature = document.querySelector(".big-degree");
   temperature.innerHTML = Math.round(info.data.main.temp);
 
