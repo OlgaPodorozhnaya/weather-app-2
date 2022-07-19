@@ -14,16 +14,30 @@
 .degree {
   text-align: center;
   padding: 2px;
-  font-size: 18px;
+  font-size: 18px;   
+  
 }
 .degrees {
   font-weight: normal;
-  font-size: 20px;
+  position: relative;
+  top:-23px;
+  font-size: 16px;
+ 
 }
 .big-degree {
-  font-weight: bold;
-  font-size: 35px;
+  color: rgb(32, 33, 36);
+ display: inline;
+font-size: 48px;
+font-weight: 400;
+line-height: 70px;
+margin-left: 30px;
 }
+
+.image-icon{
+  margin:-15px 0px 0px 40px;
+}
+
+
 .dayOfWeek {
   text-align: center;
   font-size: 18px;
@@ -83,3 +97,12 @@
 .link {
  margin-left: 270px;
 }
+
+.active{
+  color:rgb(32, 33, 36);
+  cursor:default;
+}
+.active:hover{
+  text-decoration: none;
+}
+

@@ -17,30 +17,39 @@ let minutes = now.getMinutes();
 
 dayAndTime.innerHTML = `${day} ${hour}:${minutes}`;
 
-// let fahrenheit;
-// let celsius;
-// function changeCel() {
-//   let degree = document.querySelector(".big-degree");
-//    console.log(degree);
-//   let newDegree = Math.round(((22 * 9) / 5) + 32);
-//   degree.innerHTML = newDegree;
-// }
-// function changeFah() {
-//   let degree = document.querySelector(".big-degree");
-//   let newDegree = Math.round((71.6 - 32) * (5/9));
-//   degree.innerHTML = newDegree;
-// }
+function showFahrenheitTemp(event) {
+  event.preventDefault();
+  let elementTemp = document.querySelector("#temperature");
+  celsius.classList.remove("active");
+  fahrenheit.classList.add("active");
+  let fahrenheitTemp = (celsiusTemp * 9) / 5 + 32;
+  elementTemp.innerHTML = Math.round(fahrenheitTemp);
+}
 
-// let fah = document.querySelector("#fahrenheit");
-// fah.addEventListener("click", changeCel);
-// let cel = document.querySelector("#celsius");
-// cel.addEventListener("click", changeFah);
+function showCelsiusTemp(event) {
+  event.preventDefault();
+  let elementTemp = document.querySelector("#temperature");
+  celsius.classList.add("active");
+  fahrenheit.classList.remove("active");
+  elementTemp.innerHTML = Math.round(celsiusTemp);
+}
+
+let celsiusTemp = null;
+let fah = document.querySelector("#fahrenheit");
+fah.addEventListener("click", showFahrenheitTemp);
+let cel = document.querySelector("#celsius");
+cel.addEventListener("click", showCelsiusTemp);
 
 // Home work---------------------------------------------------
 
 function changeData(info) {
   console.log(info);
-  console.log(info.data.weather[0].description);
+
+  let inputCity = document.querySelector(".city-change");
+  inputCity.innerHTML = info.data.name;
+
+  celsiusTemp = info.data.main.temp;
+
   let temperature = document.querySelector(".big-degree");
   temperature.innerHTML = Math.round(info.data.main.temp);
 
@@ -52,23 +61,31 @@ function changeData(info) {
 
   let wind = document.querySelector(".wind");
   wind.innerHTML = `Wind: ${info.data.wind.speed} m/c`;
+
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${info.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", info.data.weather[0].description);
 }
 
-function searchSity(event) {
-  event.preventDefault();
+function search(city) {
   let apiKey = "0c669309e9b69198d164920a0d742074";
-  let inputCity = document.querySelector("#your-city");
-  let changeCity = document.querySelector(".city-change");
-  changeCity.innerHTML = inputCity.value;
-
-  console.log(inputCity.value);
-
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${inputCity.value}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(changeData);
 }
 
+function definecity(event) {
+  event.preventDefault();
+  let cityInputElement = document.querySelector("#input-city");
+  search(cityInputElement.value);
+}
+
 let form = document.querySelector(".search-form");
-form.addEventListener("submit", searchSity);
+form.addEventListener("submit", definecity);
+
+search("New York");
 
 function showData(giveMeCity) {
   console.log(giveMeCity);
