@@ -1,4 +1,4 @@
-function today (currentDate) {
+function formatDate (currentDate) {
   let now = new Date(currentDate);
   let weekDays = [
   "Sunday",
@@ -12,7 +12,14 @@ function today (currentDate) {
 let day = weekDays[now.getDay()];
 let hour = now.getHours();
   let minutes = now.getMinutes();
-  
+  if (minutes < 10) {
+    minutes=`0${minutes}`
+  }
+   if (hour < 10) {
+     hour = `0${hour}`;
+   } 
+
+
  return `${day} ${hour}:${minutes}`;
 }
 
@@ -52,7 +59,7 @@ function changeData(info) {
   celsiusTemp = info.data.main.temp;
   
   let dayAndTime = document.querySelector(".today");
-  dayAndTime.innerHTML= today(info.data.dt*1000);
+  dayAndTime.innerHTML= formatDate(info.data.dt*1000);
   let temperature = document.querySelector(".big-degree");
   temperature.innerHTML = Math.round(info.data.main.temp);
 
