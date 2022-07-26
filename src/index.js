@@ -140,34 +140,15 @@ form.addEventListener("submit", definecity);
 
 search("New York");
 
-function showData(giveMeCity) {
-  console.log(giveMeCity);
-
-  let cityName = document.querySelector(".city-change");
-  cityName.innerHTML = giveMeCity.data.name;
-
-  let temperature = document.querySelector(".big-degree");
-  temperature.innerHTML = Math.round(giveMeCity.data.main.temp);
-
-  let description = document.querySelector(".description");
-  description.innerHTML = `Description: ${giveMeCity.data.weather[0].description}`;
-
-  let humidity = document.querySelector(".humidity");
-  humidity.innerHTML = `Humidity: ${giveMeCity.data.main.humidity} %`;
-
-  let wind = document.querySelector(".wind");
-  wind.innerHTML = `Wind: ${giveMeCity.data.wind.speed} m/c`;
-}
 
 function showLocation(position) {
   let latitude = position.coords.latitude;
   let longitude = position.coords.longitude;
   let url = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=0c669309e9b69198d164920a0d742074&units=metric`;
-  axios.get(url).then(showData);
+  axios.get(url).then(changeData);
 }
 
 function myLocation() {
-  // alert("hello");
   navigator.geolocation.getCurrentPosition(showLocation);
 }
 
