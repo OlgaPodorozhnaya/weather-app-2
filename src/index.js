@@ -22,28 +22,46 @@ function formatDate(currentDate) {
   return `${day} ${hour}:${minutes}`;
 }
 
-let forecastElement = document.querySelector("#forecast");
-let forecastHTML = `<div class="row">`;
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon" ];
-days.forEach(function (forecastDay) {
-  forecastHTML = forecastHTML +
-  `<div class="col-sm">
-    <div class="dayOfWeek">${forecastDay}
+
+function showForecast(response) {
+  console.log(response);
+  // let forecast = response.data.daily;
+  let forecastElement = document.querySelector("#forecast");
+  let forecastHTML = `<div class="row">`;
+  // let days = ["Thu", "Fri", "Sat", "Sun", "Mon"];
+  response.data.daily.forEach(function (forecastDay) {
+    forecastHTML =
+      forecastHTML +
+      `<div class="col-sm">
+    <div class="dayOfWeek">${formateDay(forecastDay.dt)}
      </div>
 
      <div class="card">
        <div class="card-body border border-light">
-         <p class="degree day-degree text-dark">${} &#176;C</p>
-         <img src="src/image/cloud.png" alt="" class="picture" />
-         <p class="degree text-muted">${} &#176;C</p>
+         <p class="degree day-degree text-dark">${Math.round(forecastDay.temp.max)}&#176;C</p>
+         <img  src="http://openweathermap.org/img/wn/${forecastDay.weather[0].icon}@2x.png" alt="" class="picture" />
+         <p class="degree text-muted">${Math.round(forecastDay.temp.min)}&#176;C</p>
        </div>
      </div>
    </div>`;
-}
-);
- forecastHTML = forecastHTML + `</div>`;
-forecastElement.innerHTML = forecastHTML;
+  }
+  );
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+};
 
+function formateDay(timestemp) {
+  let date = new Date(timestemp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  return days[day];
+}
+
+function getForecast(coords) {
+   let apiKey = "0c669309e9b69198d164920a0d742074";
+  let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${coords.lat}&lon=${coords.lon}&appid=${apiKey}&units=metric`
+  axios.get(url).then(showForecast);
+} 
 
 function showFahrenheitTemp(event) {
   event.preventDefault();
@@ -98,6 +116,8 @@ function changeData(info) {
     `http://openweathermap.org/img/wn/${info.data.weather[0].icon}@2x.png`
   );
   iconElement.setAttribute("alt", info.data.weather[0].description);
+
+  getForecast(info.data.coord);
 }
 
 function search(city) {
