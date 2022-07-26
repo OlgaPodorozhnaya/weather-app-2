@@ -1,28 +1,48 @@
-function formatDate (currentDate) {
+function formatDate(currentDate) {
   let now = new Date(currentDate);
   let weekDays = [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday",
-];
-let day = weekDays[now.getDay()];
-let hour = now.getHours();
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = weekDays[now.getDay()];
+  let hour = now.getHours();
   let minutes = now.getMinutes();
   if (minutes < 10) {
-    minutes=`0${minutes}`
+    minutes = `0${minutes}`;
   }
-   if (hour < 10) {
-     hour = `0${hour}`;
-   } 
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
 
-
- return `${day} ${hour}:${minutes}`;
+  return `${day} ${hour}:${minutes}`;
 }
 
+let forecastElement = document.querySelector("#forecast");
+let forecastHTML = `<div class="row">`;
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon" ];
+days.forEach(function (forecastDay) {
+  forecastHTML = forecastHTML +
+  `<div class="col-sm">
+    <div class="dayOfWeek">${forecastDay}
+     </div>
+
+     <div class="card">
+       <div class="card-body border border-light">
+         <p class="degree day-degree text-dark">${} &#176;C</p>
+         <img src="src/image/cloud.png" alt="" class="picture" />
+         <p class="degree text-muted">${} &#176;C</p>
+       </div>
+     </div>
+   </div>`;
+}
+);
+ forecastHTML = forecastHTML + `</div>`;
+forecastElement.innerHTML = forecastHTML;
 
 
 function showFahrenheitTemp(event) {
@@ -57,9 +77,9 @@ function changeData(info) {
   inputCity.innerHTML = info.data.name;
 
   celsiusTemp = info.data.main.temp;
-  
+
   let dayAndTime = document.querySelector(".today");
-  dayAndTime.innerHTML= formatDate(info.data.dt*1000);
+  dayAndTime.innerHTML = formatDate(info.data.dt * 1000);
   let temperature = document.querySelector(".big-degree");
   temperature.innerHTML = Math.round(info.data.main.temp);
 
